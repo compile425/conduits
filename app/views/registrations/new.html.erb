@@ -1,0 +1,39 @@
+<div class="auth-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xs-12">
+        <h1 class="text-xs-center">Sign up</h1>
+        <p class="text-xs-center">
+          <%= link_to "Have an account?", new_user_session_path %>
+        </p>
+
+        <% if @user && @user.errors.any? %>
+          <ul class="error-messages">
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <%= form_with(model: @user, url: user_registration_path, method: :post, local: true) do |form| %>
+          <fieldset class="form-group">
+            <%= form.text_field :username, class: "form-control form-control-lg", type: "text", placeholder: "Username", required: true %>
+          </fieldset>
+          <fieldset class="form-group">
+            <%= form.email_field :email, class: "form-control form-control-lg", type: "email", placeholder: "Email", required: true %>
+          </fieldset>
+          <fieldset class="form-group">
+            <%= form.password_field :password, class: "form-control form-control-lg", type: "password", placeholder: "Password", required: true %>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <%= form.password_field :password_confirmation, class: "form-control form-control-lg", type: "password", placeholder: "Password Confirmation", required: true %>
+          </fieldset>
+          <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
+            Sign up
+          </button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="editor-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-10 offset-md-1 col-xs-12">
+        <h2>Edit Article</h2>
+
+        <% if @conduit && @conduit.errors.any? %>
+          <ul class="error-messages">
+            <% @conduit.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <%= form_with(model: @conduit, url: update_article_path(@conduit.id), method: :patch, local: true) do |form| %>
+          <fieldset>
+            <fieldset class="form-group">
+              <%= form.label :title, "Article Title" %>
+              <%= form.text_field :title, class: "form-control form-control-lg", placeholder: "Article Title" %>
+            </fieldset>
+            <fieldset class="form-group">
+              <%= form.label :description, "What's this article about?" %>
+              <%= form.text_field :description, class: "form-control", placeholder: "What's this article about?" %>
+            </fieldset>
+            <fieldset class="form-group">
+              <%= form.label :body, "Write your article (in markdown)" %>
+              <%= form.text_area :body, class: "form-control", rows: "8", placeholder: "Write your article (in markdown)" %>
+            </fieldset>
+            <fieldset class="form-group">
+              <%= form.label :tag_list, "Enter tags (comma separated)" %>
+              <%= form.text_field :tag_list, value: @conduit.tag_list.is_a?(Array) ? @conduit.tag_list.join(', ') : @conduit.tag_list, class: "form-control", placeholder: "Enter tags" %>
+            </fieldset>
+            <%= form.button "Publish Article", class: "btn btn-lg pull-xs-right btn-primary", type: "submit" %>
+          </fieldset>
+        <% end %>
+        <hr>
+        <%= link_to 'Back to Article', article_detail_path(@conduit.id), class: 'btn btn-outline-secondary' %>
+        <%= link_to 'Back to Home', root_path, class: 'btn btn-outline-secondary' %>
+
+      </div>
+    </div>
+  </div>
+</div>

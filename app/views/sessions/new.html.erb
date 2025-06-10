@@ -1,0 +1,30 @@
+<div class="auth-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xs-12">
+        <h1 class="text-xs-center">Sign in</h1>
+        <p class="text-xs-center">
+          <%= link_to "Need an account?", new_user_registration_path =%>
+        </p>
+
+        <% if @error_message %>
+          <ul class="error-messages">
+            <li><%= @error_message %></li>
+          </ul>
+        <% end %>
+
+        <%= form_with(scope: :session, url: user_session_path, method: :post, local: true) do |form| %>
+          <fieldset class="form-group">
+            <%= form.email_field :email, class: "form-control form-control-lg", type: "email", placeholder: "Email", required: true %>
+          </fieldset>
+          <fieldset class="form-group">
+            <%= form.password_field :password, class: "form-control form-control-lg", type: "password", placeholder: "Password", required: true %>
+          </fieldset>
+          <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
+            Sign in
+          </button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

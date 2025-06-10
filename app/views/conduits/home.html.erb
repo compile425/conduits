@@ -1,0 +1,81 @@
+<div class="home-page">
+  <div class="banner">
+    <div class="container">
+      <h1 class="logo-font">conduit</h1>
+      <p>A place to share your knowledge.</p>
+    </div>
+  </div>
+
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="feed-toggle">
+          <ul class="nav nav-pills outline-active">
+            <li class="nav-item">
+              <%= link_to "Global Feed", root_path, class: "nav-link #{'active' if current_page?(root_path)}" %>
+            </li>
+            <% if user_signed_in? %>
+            <% end %>
+          </ul>
+        </div>
+
+        <% if @conduits.present? %>
+          <% @conduits.each do |conduit| %>
+            <div class="article-preview">
+              <div class="article-meta">
+                <% if conduit.author %>
+                  <div class="info">
+                    <%= link_to conduit.author.username, class: "author" %>
+                    <span class="date"><%= conduit.created_at.strftime("%B %dth, %Y") %></span>
+                  </div>
+                <% else %>
+                  <div class="info">
+                    <span class="author">Unknown Author</span>
+                    <span class="date"><%= conduit.created_at.strftime("%B %dth, %Y") %></span>
+                  </div>
+                <% end %>
+              </div>
+              <%= link_to article_detail_path(conduit.id), class: "preview-link" do %>
+                <h1><%= conduit.title %></h1>
+                <p><%= conduit.description.presence || "No description provided." %></p>
+                <span>Read more...</span>
+                <% if conduit.try(:tag_list).present? %>
+                  <% tags_array = conduit.tag_list.is_a?(Array) ? conduit.tag_list : conduit.tag_list.split(',').map(&:strip).reject(&:blank?) %>
+                  <% if tags_array.any? %>
+                    <ul class="tag-list">
+                      <% tags_array.each do |tag| %>
+                        <li class="tag-default tag-pill tag-outline"><%= tag %></li>
+                      <% end %>
+                    </ul>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="article-preview">
+            <p>No articles are here... yet.</p>
+          </div>
+        <% end %>
+
+        <div class="mt-4 d-flex justify-content-center">
+          <%= paginate @conduits %>
+        </div>
+
+        <% if user_signed_in? %>
+          <div style="margin-top: 20px;">
+            <%= link_to "Create New Article", new_article_path, class: "btn btn-lg btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="col-md-3">
+        <div class="sidebar">
+          <p>Popular Tags</p>
+          <div class="tag-list">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
