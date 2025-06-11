@@ -54,15 +54,16 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Install dependencies
+      - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install --no-install-recommends -y \
+            build-essential \
             libsqlite3-dev \
+            sqlite3 \
             google-chrome-stable \
             libjemalloc2 \
-            libvips \
-            sqlite3
+            libvips
 
       - name: Checkout code
         uses: actions/checkout@v4
