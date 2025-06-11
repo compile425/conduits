@@ -1,24 +1,4 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+ブログプラットフォームを作成する RealWorld という OSS プロジェクトがあります。  
+このアプリは、OSS プロジェクトの中の　Conduit と同じ見た目・機能のサイトを Rails で実装する訓練として作成しました。
